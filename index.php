@@ -6,6 +6,8 @@
    
     $PNG_WEB_DIR = 'temp/';
 
+
+
     include "qrlib.php";    
 
     if (!file_exists($PNG_TEMP_DIR))
@@ -36,14 +38,12 @@
         QRcode::png('PHP QR Code :)', $filename, $errorCorrectionLevel, $matrixPointSize, 2);    
     }    
         
-    echo '<img src="'.$PNG_WEB_DIR.basename($filename).' " /><hr/>';
 
-  
     echo '<form action="index.php" method="post">
 
-        Descripcion :<textarea name="data" rows=4 width=550%  value=""'.(isset($_REQUEST['data'])?($_REQUEST['data']):'PHP QR Code :)').'" /></textarea>;
+        Descripcion:<textarea name="data" rows=2 width=550%  value=""'.(isset($_REQUEST['data'])?($_REQUEST['data']):'PHP QR Code :)').'" /></textarea>
 
-        Tipo de Codigo QR: <select name="level">
+        Tipo de Codigo QR:<select name="level">
 
             <option value="L"'.(($errorCorrectionLevel=='L')?' selected':'').'>TELEFONO</option>
             <option value="M"'.(($errorCorrectionLevel=='M')?' selected':'').'>EMAIL</option>
@@ -51,13 +51,13 @@
             <option value="H"'.(($errorCorrectionLevel=='H')?' selected':'').'>TEXTO</option>
             <option value="H"'.(($errorCorrectionLevel=='H')?' selected':'').'>URL</option>
             <option value="M"'.(($errorCorrectionLevel=='M')?' selected':'').'>TARJETA COMERCIAL</option>
-        </select>;
+        </select>
         Tamaño:<select name="size">';
         
     for($i=1;$i<=10;$i++)
         echo '<option value="'.$i.'"'.(($matrixPointSize==$i)?' selected':'').'>'.$i.'</option>';
         
-    echo '</select>;
+    echo '</select>
        <center><br><br><input type="submit" value="Generar Código QR"><hr/></center></br></br>';
 
-    
+       echo '<center><img src="'.$PNG_WEB_DIR.basename($filename).' " /></center>';
